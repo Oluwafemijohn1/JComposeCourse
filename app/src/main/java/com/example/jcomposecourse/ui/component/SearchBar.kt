@@ -62,10 +62,12 @@ fun SearchBar() {
       modifier = Modifier
           .fillMaxWidth()
           .height(85.dp)
-          .padding(16.dp)){
+          .padding(16.dp)
+  ){
 
     TextField(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+        ,
         value = "",
         onValueChange = {},
         placeholder = {
@@ -87,7 +89,10 @@ fun SearchBar() {
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
-            disabledIndicatorColor = Color.Transparent
+            disabledIndicatorColor = Color.Transparent,
+            cursorColor = Color.Black,
+            containerColor = Color.White,
+            placeholderColor = Color.Green
         )
     )
   }
