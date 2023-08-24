@@ -32,84 +32,64 @@
  * THE SOFTWARE.
  */
 
-package com.example.jcomposecourse.ui.screens
+package com.example.jcomposecourse.ui.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jcomposecourse.data.getFood
+import com.example.jcomposecourse.R
 
 @Preview
+@ExperimentalMaterial3Api
 @Composable
-fun FoodDetails(
-    foodId: Int? = 0
-) {
+fun SearchBar() {
 
-  val food = getFood()[foodId?:1]
+  Box(
+      modifier = Modifier
+          .fillMaxWidth()
+          .height(85.dp)
+          .padding(16.dp)){
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White)){
+    TextField(
+        modifier = Modifier.fillMaxSize(),
+        value = "",
+        onValueChange = {},
+        placeholder = {
+          Text(
+              text = "Search for food ...",
+              modifier = Modifier
+                  .fillMaxWidth(),
+              textAlign = TextAlign.Center)
+        },
+        leadingIcon = {
+          Icon(
+              painter = painterResource(id = R.drawable.ic_search),
+              contentDescription = "Search Icon")
+        },
+        trailingIcon = {
+          Icon(
+              painter = painterResource(id = R.drawable.ic_filter),
+              contentDescription = "Filter") },
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            disabledIndicatorColor = Color.Transparent
+        )
+    )
+  }
 
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
-            .paint(
-                painter = painterResource(id = food.banner),
-                contentScale = ContentScale.FillBounds))
-
-        Column(modifier = Modifier
-            .padding(
-                top = 350.dp,
-                start = 10.dp,
-                end = 10.dp
-            )) {
-
-            Text(
-                text = food.name,
-                modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.displaySmall,
-                fontWeight = FontWeight.ExtraBold)
-
-            Text(
-                text = "About Food",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .padding(top = 50.dp))
-
-            Text(
-                text = food.description,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(top = 16.dp))
-
-        }
-
-    }
-
-}
-
-@Preview
-@Composable
-fun FoodDetailsPreview() {
-  FoodDetails()
 }
