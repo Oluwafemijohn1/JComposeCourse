@@ -40,7 +40,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -48,19 +47,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
@@ -193,7 +193,7 @@ fun TextFieldDemo() {
 
 @Preview
 @Composable
-fun TestPage() {
+fun ImageUsage() {
     Image(
         painter = painterResource(id = R.drawable.food_ramen),
         contentDescription = stringResource(id = R.string.ramen),
@@ -226,6 +226,77 @@ fun LoadImageFromUrl(){
             .wrapContentWidth()
     )
 }
+
+
+
+@Composable
+fun LabelCheckBox(
+    modifier: Modifier = Modifier,
+    label: String? = null,
+    checked: Boolean = false,
+    enabled: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit = {}
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            enabled = enabled
+        )
+
+        Spacer(modifier = Modifier.size(8.dp))
+
+        Text(
+            modifier = Modifier,
+            text = label?:""
+        )
+    }
+}
+
+@Preview
+@Composable
+fun CheckBoxAndRadioButtonDemo(){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        LabelCheckBox(
+            label = "Label 1",
+            checked = true,
+            onCheckedChange = { /*TODO*/ }
+        )
+        LabelCheckBox(
+            label = "Label 2",
+            checked = false,
+            enabled = false,
+            onCheckedChange = { /*TODO*/ }
+        )
+
+        RadioButton(
+            selected = true,
+            onClick = { /*TODO*/ },
+            enabled = false,
+            colors = RadioButtonDefaults.colors(
+                selectedColor = Color.Red,
+                unselectedColor = Color.Blue
+            )
+        )
+
+        RadioButton(selected = false, onClick = { /*TODO*/ })
+    }
+}
+
+
+
+
+
+
 
 
 
