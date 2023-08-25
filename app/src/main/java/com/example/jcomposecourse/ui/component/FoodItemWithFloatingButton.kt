@@ -32,9 +32,6 @@ import com.example.jcomposecourse.R
 import com.example.jcomposecourse.data.Food
 import com.example.jcomposecourse.data.getFood
 
-//
-//class FoodItemWithFloatingButton {
-//}
 
 @Preview
 @Composable

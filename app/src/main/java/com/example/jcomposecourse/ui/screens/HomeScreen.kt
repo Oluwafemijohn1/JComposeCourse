@@ -50,6 +50,7 @@ import com.example.jcomposecourse.data.getFood
 import com.example.jcomposecourse.ui.component.BottomNavBar
 import com.example.jcomposecourse.ui.component.FoodItem
 import com.example.jcomposecourse.ui.component.FoodItemWithFloatingButton
+import com.example.jcomposecourse.ui.component.HomeSection
 import com.example.jcomposecourse.ui.component.ProfileBar
 import com.example.jcomposecourse.ui.component.SearchBar
 import com.example.jcomposecourse.ui.component.SearchBarWithCard
@@ -81,8 +82,7 @@ fun HomeScreen() {
         .padding(paddingValues)
     ) {
         SearchBarWithCard()
-        FoodItemWithFloatingButton(food = getFood()[1])
-        LoadImageFromUrl()
+        HomeSection()
     }
   }
 }

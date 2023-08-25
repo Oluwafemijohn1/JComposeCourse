@@ -13,6 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -28,6 +32,8 @@ import com.example.jcomposecourse.R
 @Composable
 fun SearchBarWithCard() {
 
+    var search by remember { mutableStateOf("") }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,8 +44,8 @@ fun SearchBarWithCard() {
 
         TextField(
             modifier = Modifier.fillMaxSize(),
-            value = "",
-            onValueChange = { "" },
+            value = search,
+            onValueChange = { search = it },
             leadingIcon = { Image(painter = painterResource(id = R.drawable.ic_search), contentDescription = "search bar") },
             trailingIcon = { Image(painter = painterResource(id = R.drawable.ic_filter), contentDescription = "filter") },
             placeholder = {
