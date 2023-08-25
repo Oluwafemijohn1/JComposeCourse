@@ -43,6 +43,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.jcomposecourse.LoadImageFromUrl
 import com.example.jcomposecourse.data.getFood
 import com.example.jcomposecourse.ui.component.FoodItem
 import com.example.jcomposecourse.ui.component.ProfileBar
@@ -72,6 +73,7 @@ fun HomeScreen() {
       Text(text = "Home Screen")
 
         FoodItem(food = getFood()[1])
+        LoadImageFromUrl()
 
     }
   }
