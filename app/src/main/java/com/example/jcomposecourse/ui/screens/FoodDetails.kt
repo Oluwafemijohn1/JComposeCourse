@@ -34,18 +34,34 @@
 
 package com.example.jcomposecourse.ui.screens
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -53,15 +69,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jcomposecourse.R
 import com.example.jcomposecourse.data.getFood
+import com.example.jcomposecourse.ui.component.FoodDetailsMeasure
+import com.example.jcomposecourse.ui.component.PriceBar
 
 @Preview
 @Composable
 fun FoodDetails(
-    foodId: Int? = 0
+    foodId: Int? = 0,
 ) {
 
-  val food = getFood()[foodId?:1]
+    val food = getFood()[foodId?:0]
 
     Box(
         modifier = Modifier
@@ -75,32 +94,125 @@ fun FoodDetails(
                 painter = painterResource(id = food.banner),
                 contentScale = ContentScale.FillBounds))
 
-        Column(modifier = Modifier
-            .padding(
-                top = 350.dp,
-                start = 10.dp,
-                end = 10.dp
-            )) {
+        TopNavItem(modifier = Modifier
+            .align(Alignment.TopStart)
+            .padding(top = 32.dp, start = 16.dp), icon = R.drawable.ic_back)
 
-            Text(
-                text = food.name,
+
+        TopNavItem(modifier = Modifier
+            .align(Alignment.TopEnd)
+            .padding(top = 32.dp, end = 16.dp), icon = R.drawable.ic_favorite)
+
+
+        Card(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 300.dp),
+            shape = RoundedCornerShape(topStart = 25.dp, topEnd = 25.dp)
+        ) {
+
+
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.displaySmall,
-                fontWeight = FontWeight.ExtraBold)
+                    .padding(top = 110.dp, start = 16.dp, end = 16.dp),) {
 
-            Text(
-                text = "About Food",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier
-                    .padding(top = 50.dp))
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text = food.name,
+                    style = MaterialTheme.typography.displaySmall,
+                    fontWeight = FontWeight.ExtraBold)
 
-            Text(
-                text = food.description,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(top = 16.dp))
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)
+                    .padding(horizontal = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly) {
+
+                    FoodDetailsMeasure(
+                        icon = R.drawable.ic_clock,
+                        text = "${food.waitTime} mins",
+                        iconColor = MaterialTheme.colorScheme.tertiary)
+
+                    Divider()
+
+                    FoodDetailsMeasure(
+                        icon = R.drawable.ic_cal,
+                        text = "${food.calories} Kal",
+                        iconColor = MaterialTheme.colorScheme.primary)
+
+                    Divider()
+
+                    FoodDetailsMeasure(
+                        icon = R.drawable.ic_star,
+                        text = "${food.rating} / 5",
+                        iconColor = MaterialTheme.colorScheme.error)
+
+
+                }
+
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp, bottom = 16.dp)
+                        .height(1.dp)
+                        .background(color = MaterialTheme.colorScheme.onBackground)
+                )
+
+
+                // price and qty
+                PriceBar(price = food.price, originalPrice = food.originalPrice)
+
+                Text(
+                    text = "About Food",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(top = 50.dp))
+
+                Text(
+                    modifier = Modifier.padding(top = 16.dp),
+                    text = food.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium)
+
+            }
+
+        }
+
+        Button(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = 64.dp)
+                .padding(vertical = 16.dp),
+            shape = RoundedCornerShape(50.dp)
+        ) {
+
+            Text(text = "Add to order $${(food.price?:food.originalPrice)} each", modifier = Modifier)
+
+        }
+
+        Surface(
+            modifier = Modifier
+                .padding(top = 150.dp)
+                .size(250.dp)
+                .background(color = MaterialTheme.colorScheme.tertiary, shape = CircleShape)
+                .shadow(elevation = 10.dp, shape = CircleShape)
+                .border(
+                    width = 4.dp,
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = CircleShape
+                )
+                .clip(CircleShape)
+                .align(Alignment.TopCenter)
+        ) {
+
+            Image(
+                painter = painterResource(id = food.banner),
+                contentDescription = "",
+                contentScale = ContentScale.Crop)
 
         }
 
@@ -108,8 +220,104 @@ fun FoodDetails(
 
 }
 
+@Composable
+fun TopNavItem(
+    modifier: Modifier = Modifier,
+    @DrawableRes icon: Int =  R.drawable.ic_cart
+) {
+
+    Box(
+        modifier = modifier
+            .size(50.dp)
+            .clip(CircleShape)
+            .background(color = MaterialTheme.colorScheme.background)) {
+
+        Icon(
+            modifier = Modifier.align(Alignment.Center),
+            painter = painterResource(id = icon),
+            contentDescription = "nav",
+            tint = MaterialTheme.colorScheme.onBackground
+        )
+
+    }
+
+}
+
+@Composable
+fun Divider() {
+    Box(modifier = Modifier
+        .size(8.dp)
+        .clip(CircleShape)
+        .border(
+            width = 2.dp,
+            color = MaterialTheme.colorScheme.onBackground,
+            shape = CircleShape
+        ))
+}
+
+
+
+
+
+
 @Preview
 @Composable
-fun FoodDetailsPreview() {
-  FoodDetails()
+fun FoodDetails1(
+    foodId: Int? = 0,
+) {
+
+    val food = getFood()[foodId ?: 1]
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.White)
+    ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+                .paint(
+                    painter = painterResource(id = food.banner),
+                    contentScale = ContentScale.FillBounds
+                )
+        )
+
+        Column(
+            modifier = Modifier
+                .padding(
+                    top = 350.dp,
+                    start = 10.dp,
+                    end = 10.dp
+                )
+        ) {
+
+            Text(
+                text = food.name,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displaySmall,
+                fontWeight = FontWeight.ExtraBold
+            )
+
+            Text(
+                text = "About Food",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier
+                    .padding(top = 50.dp)
+            )
+
+            Text(
+                text = food.description,
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+        }
+
+    }
+
 }
