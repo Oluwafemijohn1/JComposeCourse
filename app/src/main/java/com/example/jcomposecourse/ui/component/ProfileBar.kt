@@ -66,7 +66,12 @@ fun ProfileBar(){
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+//                top = 16.dp,
+//                bottom = 16.dp
+            )
 
     ) {
 
@@ -78,7 +83,7 @@ fun ProfileBar(){
         Column(
             modifier = Modifier
                 .width(200.dp)
-                .height(100.dp)
+//                .height(100.dp)
                 .padding(10.dp),
             verticalArrangement = Arrangement.SpaceBetween) {
 
@@ -108,7 +113,10 @@ fun ProfileBar(){
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFFFFFFFF
+)
 @Composable
 fun ProfileBarPreview() {
     ProfileBar()

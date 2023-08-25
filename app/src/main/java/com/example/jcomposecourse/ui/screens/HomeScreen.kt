@@ -35,6 +35,7 @@
 package com.example.jcomposecourse.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,10 +44,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.jcomposecourse.LoadImageFromUrl
+import androidx.compose.ui.unit.dp
+import com.example.jcomposecourse.demo.LoadImageFromUrl
 import com.example.jcomposecourse.data.getFood
+import com.example.jcomposecourse.ui.component.BottomNavBar
 import com.example.jcomposecourse.ui.component.FoodItem
+import com.example.jcomposecourse.ui.component.FoodItemWithFloatingButton
 import com.example.jcomposecourse.ui.component.ProfileBar
+import com.example.jcomposecourse.ui.component.SearchBar
+import com.example.jcomposecourse.ui.component.SearchBarWithCard
 
 /**
  * Main Screen
@@ -60,21 +66,23 @@ fun HomeScreen() {
       topBar = {
         ProfileBar()
       },
+      contentWindowInsets = WindowInsets(
+          left = 16.dp,
+          right = 16.dp,
+      ),
       bottomBar = {
-        Text(text = "Bottom Bar")
+        BottomNavBar()
       }
   ) {
     paddingValues ->
 
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(paddingValues)) {
-
-      Text(text = "Home Screen")
-
-        FoodItem(food = getFood()[1])
+        .padding(paddingValues)
+    ) {
+        SearchBarWithCard()
+        FoodItemWithFloatingButton(food = getFood()[1])
         LoadImageFromUrl()
-
     }
   }
 }

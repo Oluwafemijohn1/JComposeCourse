@@ -32,7 +32,7 @@
  * THE SOFTWARE.
  */
 
-package com.example.jcomposecourse
+package com.example.jcomposecourse.demo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -64,6 +64,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.example.jcomposecourse.R
 
 @Preview
 @Composable
