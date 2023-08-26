@@ -38,13 +38,16 @@ import com.example.jcomposecourse.data.getFood
 fun FoodItemWithFloatingButton(
     food: Food = getFood().first(),
     id: Int = 0,
+    onItemPressed: (Int) -> Unit = {}
 ) {
 
     Card(
         modifier = Modifier
             .width(200.dp)
             .clickable {
-
+                onItemPressed(
+                    getFood().indexOf(food)
+                )
             }
             .padding(end = 8.dp),
         shape = RoundedCornerShape(corner = CornerSize(10.dp))) {
