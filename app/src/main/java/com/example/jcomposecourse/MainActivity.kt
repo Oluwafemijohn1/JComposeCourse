@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.jcomposecourse.navigations.Navigations
 import com.example.jcomposecourse.ui.theme.JComposeCourseTheme
 import com.example.jcomposecourse.ui.screens.HomeScreen
 
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             JComposeCourseTheme {
                 // A surface container using the 'background' color from the theme
-                HomeScreen()
+                Navigations()
             }
         }
     }

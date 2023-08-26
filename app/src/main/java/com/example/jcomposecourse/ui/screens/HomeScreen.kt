@@ -61,7 +61,9 @@ import com.example.jcomposecourse.ui.component.SearchBarWithCard
 
 @ExperimentalMaterial3Api
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onItemPressed: (Int) -> Unit = {}
+) {
 
   Scaffold(
       topBar = {
@@ -82,7 +84,9 @@ fun HomeScreen() {
         .padding(paddingValues)
     ) {
         SearchBarWithCard()
-        HomeSection()
+        HomeSection(
+            onItemPressed
+        )
     }
   }
 }

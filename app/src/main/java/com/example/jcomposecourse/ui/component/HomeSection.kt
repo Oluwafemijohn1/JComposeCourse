@@ -71,7 +71,9 @@ import com.example.jcomposecourse.data.getFood
 @Preview
 @Composable
 @ExperimentalMaterial3Api
-fun HomeSection() {
+fun HomeSection(
+    onItemPressed: (Int) -> Unit = {}
+) {
   Surface(modifier = Modifier) {
     Column(
         modifier = Modifier
@@ -169,7 +171,7 @@ fun HomeSection() {
       ){
 
         items(getFood()){item ->
-          FoodItemWithFloatingButton(food = item)
+          FoodItemWithFloatingButton(food = item, onItemPressed = onItemPressed)
         }
 
       }
